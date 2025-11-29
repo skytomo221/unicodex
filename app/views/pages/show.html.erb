@@ -1,0 +1,188 @@
+<% provide :title, "U+#{@unicode_character.hex} – #{ @unicode_character.common_name || 'UNASSIGNED' }" %>
+
+<% content_for :head do %>
+  <style>
+    .codepoint-page {
+      margin: 0 auto;
+      max-width: 960px;
+      padding: 2rem 1.5rem 3rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .codepoint-hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .codepoint-glyph {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: #fafafa;
+    }
+
+    .codepoint-label {
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      color: #666;
+      margin: 0 0 0.25rem;
+      text-transform: uppercase;
+    }
+
+    .codepoint-name {
+      font-size: 2rem;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .codepoint-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .codepoint-card {
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 1rem;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    }
+
+    .codepoint-card h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      color: #666;
+      text-transform: uppercase;
+    }
+
+    .codepoint-card dl {
+      margin: 0;
+    }
+
+    .codepoint-card dt {
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      color: #888;
+      text-transform: uppercase;
+    }
+
+    .codepoint-card dd {
+      margin: 0 0 0.75rem;
+      font-size: 1.05rem;
+      color: #111;
+    }
+
+    .codepoint-raw pre {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 10px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .codepoint-actions {
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .codepoint-actions a {
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      text-decoration: none;
+      color: #111;
+      background: #fff;
+    }
+  </style>
+<% end %>
+
+<% glyph = begin
+            [@unicode_character.codepoint].pack("U")
+          rescue RangeError
+            "�"
+          end %>
+<% format_codepoint = ->(value) { value.present? ? format("U+%04X", value) : "—" } %>
+
+<main class="codepoint-page">
+  <header class="codepoint-hero">
+    <div class="codepoint-glyph" aria-hidden="true"><%= glyph %></div>
+    <div class="codepoint-hero__info">
+      <p class="codepoint-label">U+<%= @unicode_character.hex %></p>
+      <h1 class="codepoint-name"><%= @unicode_character.common_name || "UNASSIGNED" %></h1>
+    </div>
+  </header>
+
+  <div class="codepoint-actions">
+    <a href="/">ホームに戻る</a>
+    <a href="https://www.unicode.org/charts/" target="_blank" rel="noopener">Unicode Charts</a>
+  </div>
+
+  <section class="codepoint-meta">
+    <div class="codepoint-card">
+      <h2>基本情報</h2>
+      <dl>
+        <dt>General Category</dt>
+        <dd><%= @unicode_character.general_category.presence || "—" %></dd>
+
+        <dt>Combining Class</dt>
+        <dd><%= @unicode_character.unicode_data_record.canonical_combining_class || "—" %></dd>
+
+        <dt>Bidi Class</dt>
+        <dd><%= @unicode_character.unicode_data_record.bidi_class.presence || "—" %></dd>
+
+        <dt>ブロック</dt>
+        <dd><%= @unicode_character.block.presence || "—" %></dd>
+      </dl>
+    </div>
+
+    <div class="codepoint-card">
+      <h2>数値情報</h2>
+      <dl>
+        <% numeric_type_label = { 0 => "Decimal", 1 => "Digit", 2 => "Numeric" }[@unicode_character.unicode_data_record.numeric_type] %>
+        <dt>Numeric Type</dt>
+        <dd><%= numeric_type_label || "—" %></dd>
+
+        <dt>Numeric Value</dt>
+        <dd><%= @unicode_character.unicode_data_record.numeric_value.presence || "—" %></dd>
+      </dl>
+    </div>
+
+    <div class="codepoint-card">
+      <h2>簡易大文字/小文字</h2>
+      <dl>
+        <dt>Uppercase</dt>
+        <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_uppercase) %></dd>
+
+        <dt>Lowercase</dt>
+        <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_lowercase) %></dd>
+
+        <dt>Titlecase</dt>
+        <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_titlecase) %></dd>
+      </dl>
+    </div>
+  </section>
+
+  <% if @unicode_character.unicode_data_record.raw_data.present? %>
+    <section class="codepoint-raw">
+      <h2>UCD/UnicodeData.txt スナップショット</h2>
+      <pre><code><%= @unicode_character.unicode_data_record.raw_data %></code></pre>
+    </section>
+  <% end %>
+</main>

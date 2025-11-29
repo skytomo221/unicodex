@@ -49,6 +49,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Language Server Protocol implementation for Ruby [https://github.com/Shopify/ruby-lsp]
+  gem "ruby-lsp", require: false
 end
 
 group :development do
