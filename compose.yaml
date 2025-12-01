@@ -6,3 +6,11 @@ services:
     stdin_open: true
     volumes:
       - .:/workspace
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: unicode-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
