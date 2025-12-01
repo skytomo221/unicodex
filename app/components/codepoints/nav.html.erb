@@ -1,0 +1,16 @@
+<nav class="text-center text-gray-300 py-4 my-4 relative w-full flex items-center justify-center p-5 w-full">
+  <div class="line"></div>
+  <%= link_to "/codepoint/#{@unicode_character.previous.hex}" do %>
+    <%= render(UnicodeCharacterCard.new(unicode_character: @unicode_character.previous)) %>
+  <% end %>
+  <div class="z-1 text-sm text-white bg-indigo-500 px-2">← Previous</div>
+  <div class="character-station-outer">
+    <div class="absolute z-2 text-base -top-6 tracking-[0.12em] text-gray-600">U+0042</div>
+    <%= render(UnicodeCharacterCard.new(unicode_character: @unicode_character, type: :main)) %>
+    <div class="absolute z-2 text-base -bottom-6 text-gray-800">LATIN CAPITAL LETTER B</div>
+  </div>
+  <div class="z-1 text-sm text-white bg-indigo-500 px-2">Next →</div>
+  <%= link_to "/codepoint/#{@unicode_character.next.hex}" do %>
+    <%= render(UnicodeCharacterCard.new(unicode_character: @unicode_character.next)) %>
+  <% end %>
+</nav>

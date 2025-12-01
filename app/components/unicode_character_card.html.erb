@@ -1,0 +1,12 @@
+<div class="relative
+            z-1
+            <%= @type == :main ? "w-30 h-30" : "w-20 h-20" %>
+            rounded-xl
+            border border-gray-300
+            flex items-center justify-center
+            <%= @type == :main ? "text-6xl" : "text-5xl" %>
+            text-gray-500
+            bg-[#fafafa]
+            shadow-md">
+  <%= @unicode_character.glyph %>
+</div>
