@@ -56,7 +56,7 @@ class DerivedNameImporter < UnicodeImporter
   def expand_codepoints(field)
     case field
     in /\A([0-9A-Fa-f]{4,6})\z/
-      [Regexp.last_match(1).to_i(16)]
+      [ Regexp.last_match(1).to_i(16) ]
     in /\A(?<start>[0-9A-Fa-f]{4,6})\.\.(?<end>[0-9A-Fa-f]{4,6})\z/
       start_cp = Regexp.last_match(:start).to_i(16)
       end_cp = Regexp.last_match(:end).to_i(16)

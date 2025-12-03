@@ -114,14 +114,6 @@
 <% format_codepoint = ->(value) { value.present? ? format("U+%04X", value) : "—" } %>
 
 <main class="codepoint-page">
-  <header class="codepoint-hero">
-    <div class="codepoint-glyph" aria-hidden="true"><%= @unicode_character.glyph %></div>
-    <div class="codepoint-hero__info">
-      <p class="codepoint-label">U+<%= @unicode_character.hex %></p>
-      <h1 class="codepoint-name"><%= @unicode_character.common_name || "UNASSIGNED" %></h1>
-    </div>
-  </header>
-
   <%= render(Codepoints::Nav.new(unicode_character: @unicode_character)) %>
 
   <div class="codepoint-actions">
@@ -129,55 +121,61 @@
     <a href="https://www.unicode.org/charts/" target="_blank" rel="noopener">Unicode Charts</a>
   </div>
 
-  <section class="codepoint-meta">
-    <div class="codepoint-card">
-      <h2>基本情報</h2>
-      <dl>
-        <dt>General Category</dt>
-        <dd><%= @unicode_character.general_category.presence || "—" %></dd>
+  <% if @unicode_character.noncharacter? %>
+    非文字です
+  <% elsif @unicode_character.unassigned? %>
+    未割り当てのコードポイントです
+  <% else %>
+    <section class="codepoint-meta">
+      <div class="codepoint-card">
+        <h2>基本情報</h2>
+        <dl>
+          <dt>General Category</dt>
+          <dd><%= @unicode_character.general_category.presence || "—" %></dd>
 
-        <dt>Combining Class</dt>
-        <dd><%= @unicode_character.unicode_data_record.canonical_combining_class || "—" %></dd>
+          <dt>Combining Class</dt>
+          <dd><%= @unicode_character.unicode_data_record.canonical_combining_class || "—" %></dd>
 
-        <dt>Bidi Class</dt>
-        <dd><%= @unicode_character.unicode_data_record.bidi_class.presence || "—" %></dd>
+          <dt>Bidi Class</dt>
+          <dd><%= @unicode_character.unicode_data_record.bidi_class.presence || "—" %></dd>
 
-        <dt>ブロック</dt>
-        <dd><%= @unicode_character.block.presence || "—" %></dd>
-      </dl>
-    </div>
+          <dt>ブロック</dt>
+          <dd><%= @unicode_character.block.presence || "—" %></dd>
+        </dl>
+      </div>
 
-    <div class="codepoint-card">
-      <h2>数値情報</h2>
-      <dl>
-        <% numeric_type_label = { 0 => "Decimal", 1 => "Digit", 2 => "Numeric" }[@unicode_character.unicode_data_record.numeric_type] %>
-        <dt>Numeric Type</dt>
-        <dd><%= numeric_type_label || "—" %></dd>
+      <div class="codepoint-card">
+        <h2>数値情報</h2>
+        <dl>
+          <% numeric_type_label = { 0 => "Decimal", 1 => "Digit", 2 => "Numeric" }[@unicode_character.unicode_data_record.numeric_type] %>
+          <dt>Numeric Type</dt>
+          <dd><%= numeric_type_label || "—" %></dd>
 
-        <dt>Numeric Value</dt>
-        <dd><%= @unicode_character.unicode_data_record.numeric_value.presence || "—" %></dd>
-      </dl>
-    </div>
+          <dt>Numeric Value</dt>
+          <dd><%= @unicode_character.unicode_data_record.numeric_value.presence || "—" %></dd>
+        </dl>
+      </div>
 
-    <div class="codepoint-card">
-      <h2>簡易大文字/小文字</h2>
-      <dl>
-        <dt>Uppercase</dt>
-        <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_uppercase) %></dd>
+      <div class="codepoint-card">
+        <h2>簡易大文字/小文字</h2>
+        <dl>
+          <dt>Uppercase</dt>
+          <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_uppercase) %></dd>
 
-        <dt>Lowercase</dt>
-        <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_lowercase) %></dd>
+          <dt>Lowercase</dt>
+          <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_lowercase) %></dd>
 
-        <dt>Titlecase</dt>
-        <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_titlecase) %></dd>
-      </dl>
-    </div>
-  </section>
+          <dt>Titlecase</dt>
+          <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_titlecase) %></dd>
+        </dl>
+      </div>
+      </section>
+      <% if @unicode_character.unicode_data_record.raw_data.present? %>
+        <section class="codepoint-raw">
+          <h2>UCD/UnicodeData.txt スナップショット</h2>
+          <pre><code><%= @unicode_character.unicode_data_record.raw_data %></code></pre>
+        </section>
+      <% end %>
+    <% end %>
 
-  <% if @unicode_character.unicode_data_record.raw_data.present? %>
-    <section class="codepoint-raw">
-      <h2>UCD/UnicodeData.txt スナップショット</h2>
-      <pre><code><%= @unicode_character.unicode_data_record.raw_data %></code></pre>
-    </section>
-  <% end %>
 </main>

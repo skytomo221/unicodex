@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_27_000003) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_27_000004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,13 +25,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_000003) do
   end
 
   create_table "derived_name_records", force: :cascade do |t|
-    t.integer "unicode_character_id", null: false
+    t.bigint "unicode_character_id", null: false
     t.string "name"
     t.string "raw_data"
     t.integer "raw_data_line_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["unicode_character_id"], name: "index_derived_name_records_on_unicode_character_id"
+  end
+
+  create_table "prop_list_records", force: :cascade do |t|
+    t.bigint "unicode_character_id", null: false
+    t.string "property_name"
+    t.string "raw_data"
+    t.integer "raw_data_line_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["unicode_character_id"], name: "index_prop_list_records_on_unicode_character_id"
   end
 
   create_table "unicode_characters", force: :cascade do |t|
@@ -42,7 +52,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_000003) do
   end
 
   create_table "unicode_data_records", force: :cascade do |t|
-    t.integer "unicode_character_id", null: false
+    t.bigint "unicode_character_id", null: false
     t.string "name"
     t.string "general_category"
     t.integer "canonical_combining_class"
@@ -65,5 +75,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_000003) do
   end
 
   add_foreign_key "derived_name_records", "unicode_characters"
+  add_foreign_key "prop_list_records", "unicode_characters"
   add_foreign_key "unicode_data_records", "unicode_characters"
 end

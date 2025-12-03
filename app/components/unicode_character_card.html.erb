@@ -4,8 +4,8 @@
             rounded-xl
             border border-gray-300
             flex items-center justify-center
-            <%= @type == :main ? "text-6xl" : "text-5xl" %>
-            text-gray-500
+            <%= @type == :main ? "text-6xl" : "text-4xl" %>
+            <%= @type == :main ? "text-gray-950" : "text-gray-500" %>
             bg-[#fafafa]
             shadow-md">
   <%= @unicode_character.glyph %>

@@ -120,7 +120,7 @@ class UnicodeDataImporter < UnicodeImporter
   # ロパティ値がヌル文字列である文字の場合は、コードポイントの種類に関するその他
   # の情報を提供する。
   def name(field)
-    field unless field.empty? || field.match?(/<.*>/)
+    field unless field.empty?
   end
 
   # See: https://www.unicode.org/reports/tr44/#General_Category

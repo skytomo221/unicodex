@@ -2,5 +2,5 @@
 
 namespace :unicode do
   desc "data の内容をデータベースへ取り込む"
-  task import_all: %i[environment import_unicode_data import_blocks import_derived_name]
+  task import_all: %i[environment import_unicode_data import_blocks import_derived_name import_prop_list]
 end
