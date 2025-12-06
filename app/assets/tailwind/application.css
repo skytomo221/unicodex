@@ -1,1 +1,116 @@
+/* ====== Noto Sans 系（Unicodeブロック順） ============================= */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap'); /* Basic Latin など */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap'); /* 0590..05FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap'); /* 0600..06FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap'); /* 0900..097F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap'); /* 0980..09FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gurmukhi:wght@400;700&display=swap'); /* 0A00..0A7F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&display=swap'); /* 0A80..0AFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap'); /* 0B00..0B7F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;700&display=swap'); /* 0B80..0BFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&display=swap'); /* 0C00..0C7F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700&display=swap'); /* 0C80..0CFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;700&display=swap'); /* 0D00..0D7F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&display=swap'); /* 0D80..0DFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap'); /* 0E00..0E7F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap'); /* 0E80..0EFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tibetan:wght@400;700&display=swap'); /* 0F00..0FFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap'); /* 1000..109F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;700&display=swap'); /* 10A0..10FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap'); /* 1100..11FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&display=swap'); /* 1200..137F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Cherokee:wght@400;700&display=swap'); /* 13A0..13FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Canadian+Aboriginal:wght@400;700&display=swap'); /* 1400..167F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;700&display=swap'); /* 1780..17FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@400&display=swap'); /* 2000..206F など */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Math:wght@400&display=swap'); /* 2200..22FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap'); /* 2E80..2EFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap'); /* 3040..30FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'); /* 1F300..1FAFF */
+
+/* ====== Noto Serif 系（Unicodeブロック順） ============================ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap'); /* Latin */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&display=swap'); /* 0900..097F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400;700&display=swap'); /* 0B00..0B7F */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Tibetan:wght@400;700&display=swap'); /* 0F00..0FFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap'); /* 1100..11FF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap'); /* 2E80..2EFF */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap'); /* 3040..30FF */
+
+/* 先にフォントを読み込まないと以下のエラーが発生する */
+/* Define @import rules at the top of the stylesheet */
+/* An @import rule was ignored because it wasn't defined at the top of the
+stylesheet. Such rules must appear at the top, before any style declaration and
+any other at-rule with the exception of @charset and @layer. */
 @import "tailwindcss";
+
+@font-face {
+  font-family: "LastResort";
+  src: url("LastResort-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@theme {
+  --font-sans:
+    "Noto Sans",
+    "Noto Sans Hebrew",
+    "Noto Sans Arabic",
+    "Noto Sans Devanagari",
+    "Noto Sans Bengali",
+    "Noto Sans Gurmukhi",
+    "Noto Sans Gujarati",
+    "Noto Sans Oriya",
+    "Noto Sans Tamil",
+    "Noto Sans Telugu",
+    "Noto Sans Kannada",
+    "Noto Sans Malayalam",
+    "Noto Sans Sinhala",
+    "Noto Sans Thai",
+    "Noto Sans Lao",
+    "Noto Sans Tibetan",
+    "Noto Sans Myanmar",
+    "Noto Sans Georgian",
+    "Noto Sans KR",
+    "Noto Sans Ethiopic",
+    "Noto Sans Cherokee",
+    "Noto Sans Canadian Aboriginal",
+    "Noto Sans Khmer",
+    "Noto Sans Symbols",
+    "Noto Sans Symbols 2",
+    "Noto Sans Math",
+    "Noto Sans SC",
+    "Noto Sans TC",
+    "Noto Sans HK",
+    "Noto Sans JP",
+    "Noto Color Emoji",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "LastResort";
+  --font-serif:
+    "Noto Serif",
+    "Noto Serif Devanagari",
+    "Noto Serif Oriya",
+    "Noto Serif Tibetan",
+    "Noto Serif KR",
+    "Noto Serif SC",
+    "Noto Serif TC",
+    "Noto Serif JP",
+    ui-serif,
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    serif,
+    "LastResort";
+  --breakpoint-3xl: 112rem;
+}

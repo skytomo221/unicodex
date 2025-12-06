@@ -33,7 +33,7 @@ class UnicodeCharacter < ApplicationRecord
   end
 
   def block
-    BlockRecord.containing_codepoint(codepoint)&.name
+    BlockRecord.containing_codepoint(codepoint)
   end
 
   def previous(index = 1)

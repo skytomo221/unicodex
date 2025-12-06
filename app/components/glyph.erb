@@ -1,0 +1,10 @@
+<%
+  font_class = {
+    "sans" => "font-sans",
+    "serif" => "font-serif",
+    "mono" => "font-mono"
+  }.fetch(@font, "font-sans")
+%>
+<span class="<%= font_class %>">
+  <%= @glyph %>
+</span>

@@ -1,0 +1,40 @@
+<table class="table-auto border-collapse rounded-xl">
+  <thead>
+    <tr>
+      <th scope="col" class="border border-gray-300">U+</th>
+      <% (0..0xF).map do |i| %>
+        <th scope="col" class="border border-gray-300">
+          <%= i.to_s(16).upcase %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% base_row_start = @block.start_code >> 4 %>
+    <% base_row_end = @block.end_code >> 4 %>
+    <% (base_row_start..base_row_end).map do |base_row| %>
+      <tr>
+        <th scope="row" class="border border-gray-300 w-10">
+          <%= base_row.to_s(16).upcase %>
+        </th>
+        <% (0..0xF).map do |low_nibble| %>
+          <% codepoint = (base_row << 4) | low_nibble %>
+          <% unicode_character = unicode_character_for(codepoint) %>
+          <%
+            if codepoint == @highlight
+              bg = "bg-yellow-200"
+            elsif codepoint.even?
+              bg = "bg-gray-200"
+            else
+              bg = ""
+            end
+          %>
+          <td class="border border-gray-300 w-10 h-10 text-center <%= bg %>">
+            <%= link_to "/codepoint/#{unicode_character.hex}" do %>
+              <%= render(Glyph.new(glyph: unicode_character.glyph, font: :sans)) %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+</table>

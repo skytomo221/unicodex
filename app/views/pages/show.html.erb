@@ -116,10 +116,20 @@
 <main class="codepoint-page">
   <%= render(Codepoints::Nav.new(unicode_character: @unicode_character)) %>
 
-  <div class="codepoint-actions">
-    <a href="/">ホームに戻る</a>
-    <a href="https://www.unicode.org/charts/" target="_blank" rel="noopener">Unicode Charts</a>
-  </div>
+  <h1 class="text-5xl text-center font-semibold my-5">
+    <%= @unicode_character.common_name %>
+  </h1>
+
+  <% if @unicode_character.block.present? %>
+    <section class="flex flex-col">
+      <h2 class="text-4xl text-center font-semibold my-5">ブロックの位置</h2>
+      <div class="flex">
+        <div class="grow"></div>
+        <%= render(BlockTable.new(block: @unicode_character.block, highlight: @unicode_character.codepoint)) %>
+        <div class="grow"></div>
+      </div>
+    </section>
+  <% end %>
 
   <% if @unicode_character.noncharacter? %>
     非文字です
@@ -140,7 +150,7 @@
           <dd><%= @unicode_character.unicode_data_record.bidi_class.presence || "—" %></dd>
 
           <dt>ブロック</dt>
-          <dd><%= @unicode_character.block.presence || "—" %></dd>
+          <dd><%= @unicode_character.block&.name || "—" %></dd>
         </dl>
       </div>
 
@@ -177,5 +187,10 @@
         </section>
       <% end %>
     <% end %>
+
+  <div class="codepoint-actions">
+    <a href="/">ホームに戻る</a>
+    <a href="https://www.unicode.org/charts/" target="_blank" rel="noopener">Unicode Charts</a>
+  </div>
 
 </main>
