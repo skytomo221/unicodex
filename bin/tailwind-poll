@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# NOTE: Docker + Windows/WSL2 環境では inotify ベースの監視が子ディレクトリの変
+# 更を拾えないことがある。 tailwindcss:watch は OS の監視イベントに依存している
+# ため、代わりに listen + force_polling でapp/views などの変更を監視し、変更があ
+# れば tailwindcss:build を叩く。
+
+require "English"
+require "open3"
+
+begin
+  require "listen"
+rescue LoadError
+  abort <<~MSG
+    The listen gem is not available. Please run `bundle install` inside the container.
+  MSG
+end
+
+ROOT = File.expand_path("..", __dir__)
+APP_PATH = File.join(ROOT, "app")
+WATCH_PATHS = [
+  APP_PATH,
+  File.join(ROOT, "config"),
+  File.join(ROOT, "lib")
+].freeze
+
+def build_css
+  puts "[tailwind-poll] rebuilding tailwind.css..."
+  system({ "RAILS_ENV" => ENV.fetch("RAILS_ENV", "development") },
+         File.join(ROOT, "bin/rails"),
+         "tailwindcss:build")
+  puts "[tailwind-poll] build finished with status #{$CHILD_STATUS.exitstatus}"
+end
+
+build_css
+
+listener = Listen.to(*WATCH_PATHS, force_polling: true, latency: 1.0, ignore: [%r{/app/assets/builds/}]) do |modified, added, removed|
+  changed = (modified + added + removed).first
+  puts "[tailwind-poll] change detected in #{changed || 'watched paths'}"
+  build_css
+end
+
+puts "[tailwind-poll] watching #{WATCH_PATHS.join(", ")} with polling..."
+listener.start
+sleep
