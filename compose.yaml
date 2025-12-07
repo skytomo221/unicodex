@@ -5,7 +5,8 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - .:/workspace
+      - .:/unicodex
+    working_dir: /unicodex
     depends_on:
       - db
   db:
