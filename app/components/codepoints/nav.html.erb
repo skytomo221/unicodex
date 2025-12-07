@@ -8,7 +8,7 @@
       <div class="bg-indigo-500 w-10 h-5"></div>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden 3xl:flex w-30"></div>
   <% end %>
   <% if @unicode_character.previous(4).present? %>
     <div class="hidden 2xl:flex items-center">
@@ -18,7 +18,7 @@
       <div class="bg-indigo-500 w-10 h-5"></div>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden 2xl:flex w-30"></div>
   <% end %>
   <% if @unicode_character.previous(3).present? %>
     <div class="hidden xl:flex items-center">
@@ -28,7 +28,7 @@
       <div class="bg-indigo-500 w-10 h-5"></div>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden xl:flex w-30"></div>
   <% end %>
   <% if @unicode_character.previous(2).present? %>
     <div class="hidden lg:flex items-center">
@@ -38,7 +38,7 @@
       <div class="bg-indigo-500 w-10 h-5"></div>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden lg:flex w-30"></div>
   <% end %>
   <% if @unicode_character.previous.present? %>
     <div class="hidden md:flex items-center">
@@ -48,7 +48,7 @@
       <div class="z-1 text-sm text-white bg-indigo-500 px-2 min-w-25 h-5">← Previous</div>
     </div>
   <% else %>
-    <div class="w-40"></div>
+    <div class="hidden md:flex w-40"></div>
   <% end %>
   <div class="relative flex flex-col items-center">
     <div class="absolute z-2 font-mono text-xs tracking-[0.12em] text-gray-600">
@@ -74,7 +74,7 @@
       <% end %>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden lg:flex w-30"></div>
   <% end %>
   <% if @unicode_character.next(3).present? %>
     <div class="hidden xl:flex items-center">
@@ -84,7 +84,7 @@
       <% end %>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden xl:flex w-30"></div>
   <% end %>
   <% if @unicode_character.next(4).present? %>
     <div class="hidden 2xl:flex items-center">
@@ -94,7 +94,7 @@
       <% end %>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden 2xl:flex w-30"></div>
   <% end %>
   <% if @unicode_character.next(5).present? %>
     <div class="hidden 3xl:flex items-center">
@@ -104,6 +104,6 @@
       <% end %>
     </div>
   <% else %>
-    <div class="w-30"></div>
+    <div class="hidden 3xl:flex w-30"></div>
   <% end %>
 </nav>
