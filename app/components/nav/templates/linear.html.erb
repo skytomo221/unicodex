@@ -1,0 +1,98 @@
+<%
+nav_context = @navigation
+connector_class = "bg-indigo-500 w-10 h-5"
+label_class = "z-1 text-sm text-white bg-indigo-500 px-2 min-w-25 h-5"
+
+scaled_previous_configs = [
+  { distance: 5, breakpoint: "3xl" },
+  { distance: 4, breakpoint: "2xl" },
+  { distance: 3, breakpoint: "xl" },
+  { distance: 2, breakpoint: "lg" }
+].map do |config|
+  breakpoint = config[:breakpoint]
+  {
+    distance: config[:distance],
+    wrapper_class: "hidden #{breakpoint}:flex items-center",
+    placeholder_class: "hidden #{breakpoint}:flex w-30"
+  }
+end
+
+previous_configs = scaled_previous_configs + [
+  {
+    distance: 1,
+    wrapper_class: "hidden md:flex items-center",
+    placeholder_class: "hidden md:flex w-40",
+    label: "← Previous"
+  }
+]
+
+scaled_next_configs = [
+  { distance: 2, breakpoint: "lg" },
+  { distance: 3, breakpoint: "xl" },
+  { distance: 4, breakpoint: "2xl" },
+  { distance: 5, breakpoint: "3xl" }
+].map do |config|
+  breakpoint = config[:breakpoint]
+  {
+    distance: config[:distance],
+    wrapper_class: "hidden #{breakpoint}:flex items-center",
+    placeholder_class: "hidden #{breakpoint}:flex w-30"
+  }
+end
+
+next_configs = [
+  {
+    distance: 1,
+    wrapper_class: "hidden md:flex items-center",
+    placeholder_class: "w-40",
+    label: "Next →"
+  }
+] + scaled_next_configs
+%>
+
+<nav class="text-center text-gray-300 py-4 my-4 relative w-full flex items-center justify-center p-5 w-full">
+  <div class="line"></div>
+
+  <% previous_configs.each do |config| %>
+    <% neighbor = nav_context.previous(config[:distance]) %>
+    <% if neighbor.present? %>
+      <div class="<%= config[:wrapper_class] %>">
+        <%= link_to nav_context.path_for(neighbor) do %>
+          <%= render(nav_context.card_for(neighbor)) %>
+        <% end %>
+        <% if config[:label] %>
+          <div class="<%= label_class %>"><%= config[:label] %></div>
+        <% else %>
+          <div class="<%= connector_class %>"></div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="<%= config[:placeholder_class] %>"></div>
+    <% end %>
+  <% end %>
+
+  <div class="relative flex flex-col items-center">
+    <div class="absolute z-2 font-mono text-xs tracking-[0.12em] text-gray-600">
+      <%= nav_context.label %>
+    </div>
+    <%= render(nav_context.card_for(nav_context.current, type: :main)) %>
+  </div>
+
+  <% next_configs.each do |config| %>
+    <% neighbor = nav_context.next(config[:distance]) %>
+    <% if neighbor.present? %>
+      <div class="<%= config[:wrapper_class] %>">
+        <% if config[:label] %>
+          <div class="<%= label_class %>"><%= config[:label] %></div>
+        <% else %>
+          <div class="<%= connector_class %>"></div>
+        <% end %>
+        <%= link_to nav_context.path_for(neighbor) do %>
+          <%= render(nav_context.card_for(neighbor)) %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="<%= config[:placeholder_class] %>"></div>
+    <% end %>
+  <% end %>
+</nav>

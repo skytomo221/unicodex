@@ -1,2 +1,2 @@
 web: bin/rails server
-css: bin/tailwind-poll
+css: bundle exec ruby bin/tailwind-poll

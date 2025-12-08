@@ -112,5 +112,7 @@ any other at-rule with the exception of @charset and @layer. */
     "Times New Roman",
     serif,
     "LastResort";
+  --font-last-resort:
+    "LastResort";
   --breakpoint-3xl: 112rem;
 }

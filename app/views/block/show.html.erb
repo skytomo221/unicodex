@@ -1,0 +1,20 @@
+<% provide :title, "U+#{@block.start_code.to_s(16)}..U+#{@block.end_code.to_s(16)} – #{ @block.name || 'UNASSIGNED' }" %>
+
+<% format_codepoint = ->(value) { value.present? ? format("U+%04X", value) : "—" } %>
+
+<main class="container">
+  <%= render(Nav::Blocks.new(block: @block)) %>
+
+  <h1 class="text-5xl text-center font-semibold my-5">
+    <%= @block.name %>
+  </h1>
+
+  <section class="flex flex-col">
+    <h2 class="text-4xl text-center font-semibold my-5">ブロックの位置</h2>
+    <div class="flex">
+      <div class="grow"></div>
+      <%= render(BlockTable.new(block: @block)) %>
+      <div class="grow"></div>
+    </div>
+  </section>
+</main>

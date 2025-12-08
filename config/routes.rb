@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get "/codepoint/:codepoint",
-      to: "pages#show",
+      to: "unicode_character#show",
       constraints: { codepoint: /[0-9A-F]{4,6}/ }
 
   # --- 正規化されていない /codepoint/:codepoint を正規URLに 301 リダイレクト ---
@@ -46,4 +46,6 @@ Rails.application.routes.draw do
     codepoint = params[:codepoint].to_s
     "/codepoint/#{codepoint}"
   }, constraints: { codepoint: /.+/ }
+
+  get "/block/:name", to: "block#show"
 end
