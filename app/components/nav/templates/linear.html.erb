@@ -4,16 +4,16 @@ connector_class = "bg-indigo-500 w-10 h-5"
 label_class = "z-1 text-sm text-white bg-indigo-500 px-2 min-w-25 h-5"
 
 scaled_previous_configs = [
-  { distance: 5, breakpoint: "3xl" },
-  { distance: 4, breakpoint: "2xl" },
-  { distance: 3, breakpoint: "xl" },
-  { distance: 2, breakpoint: "lg" }
+  { distance: 5, breakpoint: "3xl:flex" },
+  { distance: 4, breakpoint: "2xl:flex" },
+  { distance: 3, breakpoint: "xl:flex" },
+  { distance: 2, breakpoint: "lg:flex" }
 ].map do |config|
   breakpoint = config[:breakpoint]
   {
     distance: config[:distance],
-    wrapper_class: "hidden #{breakpoint}:flex items-center",
-    placeholder_class: "hidden #{breakpoint}:flex w-30"
+    wrapper_class: "hidden #{breakpoint} items-center",
+    placeholder_class: "hidden #{breakpoint} w-30"
   }
 end
 
@@ -27,16 +27,16 @@ previous_configs = scaled_previous_configs + [
 ]
 
 scaled_next_configs = [
-  { distance: 2, breakpoint: "lg" },
-  { distance: 3, breakpoint: "xl" },
-  { distance: 4, breakpoint: "2xl" },
-  { distance: 5, breakpoint: "3xl" }
+  { distance: 2, breakpoint: "lg:flex" },
+  { distance: 3, breakpoint: "xl:flex" },
+  { distance: 4, breakpoint: "2xl:flex" },
+  { distance: 5, breakpoint: "3xl:flex" }
 ].map do |config|
   breakpoint = config[:breakpoint]
   {
     distance: config[:distance],
-    wrapper_class: "hidden #{breakpoint}:flex items-center",
-    placeholder_class: "hidden #{breakpoint}:flex w-30"
+    wrapper_class: "hidden #{breakpoint} items-center",
+    placeholder_class: "hidden #{breakpoint} w-30"
   }
 end
 

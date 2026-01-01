@@ -117,25 +117,25 @@ any other at-rule with the exception of @charset and @layer. */
   --breakpoint-3xl: 112rem;
 }
 
-@custom-variant lg (&) {
+@custom-variant lg {
   @media (min-width: 64rem) {
     @slot;
   }
 }
 
-@custom-variant xl (&) {
+@custom-variant xl {
   @media (min-width: 80rem) {
     @slot;
   }
 }
 
-@custom-variant 2xl (&) {
+@custom-variant 2xl {
   @media (min-width: 96rem) {
     @slot;
   }
 }
 
-@custom-variant 3xl (&) {
+@custom-variant 3xl {
   @media (min-width: 112rem) {
     @slot;
   }
