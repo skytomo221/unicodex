@@ -1,119 +1,8 @@
 <% provide :title, "U+#{@unicode_character.hex} – #{ @unicode_character.common_name || 'UNASSIGNED' }" %>
 
-<% content_for :head do %>
-  <style>
-    .codepoint-page {
-      margin: 0 auto;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    .codepoint-hero {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      align-items: center;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .codepoint-glyph {
-      width: 120px;
-      height: 120px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      background: #fafafa;
-    }
-
-    .codepoint-label {
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      color: #666;
-      margin: 0 0 0.25rem;
-      text-transform: uppercase;
-    }
-
-    .codepoint-name {
-      font-size: 2rem;
-      margin: 0;
-      line-height: 1.2;
-    }
-
-    .codepoint-meta {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .codepoint-card {
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 1rem;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-    }
-
-    .codepoint-card h2 {
-      margin: 0 0 0.75rem;
-      font-size: 1rem;
-      letter-spacing: 0.04em;
-      color: #666;
-      text-transform: uppercase;
-    }
-
-    .codepoint-card dl {
-      margin: 0;
-    }
-
-    .codepoint-card dt {
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      color: #888;
-      text-transform: uppercase;
-    }
-
-    .codepoint-card dd {
-      margin: 0 0 0.75rem;
-      font-size: 1.05rem;
-      color: #111;
-    }
-
-    .codepoint-raw pre {
-      background: #0f172a;
-      color: #f8fafc;
-      border-radius: 10px;
-      padding: 1.5rem;
-      overflow-x: auto;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .codepoint-actions {
-      margin-bottom: 2rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .codepoint-actions a {
-      padding: 0.65rem 1rem;
-      border-radius: 999px;
-      border: 1px solid #ddd;
-      text-decoration: none;
-      color: #111;
-      background: #fff;
-    }
-  </style>
-<% end %>
-
 <% format_codepoint = ->(value) { value.present? ? format("U+%04X", value) : "—" } %>
 
-<main class="codepoint-page">
+<main class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
   <%= render(Nav::Codepoints.new(unicode_character: @unicode_character)) %>
 
   <h1 class="text-5xl text-center font-semibold my-5">
@@ -121,8 +10,8 @@
   </h1>
 
   <% if @unicode_character.block.present? %>
-    <section class="flex flex-col">
-      <h2 class="text-4xl text-center font-semibold my-5">ブロックの位置</h2>
+    <section class="flex flex-col mb-10">
+      <h2 class="text-xl text-slate-500 text-center font-semibold my-5">ブロックの位置</h2>
       <div class="flex">
         <div class="grow"></div>
         <%= render(BlockTable.new(block: @unicode_character.block, highlight: @unicode_character.codepoint)) %>
@@ -136,61 +25,79 @@
   <% elsif @unicode_character.unassigned? %>
     未割り当てのコードポイントです
   <% else %>
-    <section class="codepoint-meta">
-      <div class="codepoint-card">
-        <h2>基本情報</h2>
-        <dl>
-          <dt>General Category</dt>
-          <dd><%= @unicode_character.general_category.presence || "—" %></dd>
+    <section class="mb-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 class="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">基本情報</h2>
+        <dl class="space-y-3">
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">General Category</dt>
+            <dd class="text-lg text-slate-900"><%= @unicode_character.general_category.presence || "—" %></dd>
+          </div>
 
-          <dt>Combining Class</dt>
-          <dd><%= @unicode_character.unicode_data_record.canonical_combining_class || "—" %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Combining Class</dt>
+            <dd class="text-lg text-slate-900"><%= @unicode_character.unicode_data_record.canonical_combining_class || "—" %></dd>
+          </div>
 
-          <dt>Bidi Class</dt>
-          <dd><%= @unicode_character.unicode_data_record.bidi_class.presence || "—" %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Bidi Class</dt>
+            <dd class="text-lg text-slate-900"><%= @unicode_character.unicode_data_record.bidi_class.presence || "—" %></dd>
+          </div>
 
-          <dt>ブロック</dt>
-          <dd><%= @unicode_character.block&.name || "—" %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">ブロック</dt>
+            <dd class="text-lg text-slate-900"><%= @unicode_character.block&.name || "—" %></dd>
+          </div>
         </dl>
       </div>
 
-      <div class="codepoint-card">
-        <h2>数値情報</h2>
-        <dl>
+      <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 class="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">数値情報</h2>
+        <dl class="space-y-3">
           <% numeric_type_label = { 0 => "Decimal", 1 => "Digit", 2 => "Numeric" }[@unicode_character.unicode_data_record.numeric_type] %>
-          <dt>Numeric Type</dt>
-          <dd><%= numeric_type_label || "—" %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Numeric Type</dt>
+            <dd class="text-lg text-slate-900"><%= numeric_type_label || "—" %></dd>
+          </div>
 
-          <dt>Numeric Value</dt>
-          <dd><%= @unicode_character.unicode_data_record.numeric_value.presence || "—" %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Numeric Value</dt>
+            <dd class="text-lg text-slate-900"><%= @unicode_character.unicode_data_record.numeric_value.presence || "—" %></dd>
+          </div>
         </dl>
       </div>
 
-      <div class="codepoint-card">
-        <h2>簡易大文字/小文字</h2>
-        <dl>
-          <dt>Uppercase</dt>
-          <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_uppercase) %></dd>
+      <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 class="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">簡易大文字/小文字</h2>
+        <dl class="space-y-3">
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Uppercase</dt>
+            <dd class="text-lg text-slate-900"><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_uppercase) %></dd>
+          </div>
 
-          <dt>Lowercase</dt>
-          <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_lowercase) %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Lowercase</dt>
+            <dd class="text-lg text-slate-900"><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_lowercase) %></dd>
+          </div>
 
-          <dt>Titlecase</dt>
-          <dd><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_titlecase) %></dd>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-slate-400">Titlecase</dt>
+            <dd class="text-lg text-slate-900"><%= format_codepoint.call(@unicode_character.unicode_data_record.simple_titlecase) %></dd>
+          </div>
         </dl>
       </div>
+    </section>
+    <% if @unicode_character.unicode_data_record.raw_data.present? %>
+      <section class="mb-10">
+        <h2 class="mb-3 text-lg font-semibold text-slate-800">UCD/UnicodeData.txt スナップショット</h2>
+        <pre class="overflow-x-auto rounded-lg bg-slate-900 p-6 text-sm leading-relaxed text-slate-100"><code><%= @unicode_character.unicode_data_record.raw_data %></code></pre>
       </section>
-      <% if @unicode_character.unicode_data_record.raw_data.present? %>
-        <section class="codepoint-raw">
-          <h2>UCD/UnicodeData.txt スナップショット</h2>
-          <pre><code><%= @unicode_character.unicode_data_record.raw_data %></code></pre>
-        </section>
-      <% end %>
     <% end %>
+  <% end %>
 
-  <div class="codepoint-actions">
-    <a href="/">ホームに戻る</a>
-    <a href="https://www.unicode.org/charts/" target="_blank" rel="noopener">Unicode Charts</a>
+  <div class="mb-8 flex flex-wrap gap-4">
+    <a class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 shadow-sm transition hover:border-slate-300" href="/">ホームに戻る</a>
+    <a class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 shadow-sm transition hover:border-slate-300" href="https://www.unicode.org/charts/" target="_blank" rel="noopener">Unicode Charts</a>
   </div>
 
 </main>
